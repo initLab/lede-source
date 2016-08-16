@@ -529,6 +529,7 @@ platform_check_image() {
                 }
                 return 0
                 ;;
+	dap-2553-a1 | \
 	dap-2695-a1)
 		local magic=$(wrgg_get_image_magic "$1")
 		[ "$magic" != "21030820" ] && {

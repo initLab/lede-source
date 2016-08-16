@@ -22,6 +22,7 @@ mynet-rext |\
 wrt160nl)
 	fixtrx
 	;;
+dap-2553-a1 |\
 dap-2695-a1)
 	fixwrgg
 	;;

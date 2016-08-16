@@ -469,6 +469,9 @@ ar71xx_board_detect() {
 	*CR5000)
 		name="cr5000"
 		;;
+	*"DAP-2553 rev. A1")
+		name="dap-2553-a1"
+		;;
 	*"DAP-2695 rev. A1")
 		name="dap-2695-a1"
 		;;

@@ -574,6 +574,22 @@ define Build/relocate-kernel
 	mv $@.new $@
 endef
 
+define Device/dap-2553-a1
+  DEVICE_TITLE := D-Link DAP-2553 rev. A1
+  DEVICE_PACKAGES := uboot-envtools
+  BOARDNAME = DAP-2553-A1
+  IMAGES := factory.img
+  IMAGE_SIZE = 15488k
+  IMAGE/factory.img = append-kernel | pad-offset 65536 160 | append-rootfs | seama-pad-rootfs | mkwrggimg | check-size $$$$(IMAGE_SIZE)
+  KERNEL := kernel-bin | patch-cmdline | relocate-kernel | lzma
+  KERNEL_INITRAMFS := $$(KERNEL) | mkwrggimg
+  MTDPARTS = spi0.0:256k(bootloader)ro,128k(bdcfg)ro,128k(rgdb)ro,128k(langpack)ro,15488k(firmware),128k(certificate)ro,128k(radiocfg)ro
+  DAP_SIGNATURE := wapnd03_dkbs_dap2553
+  DEVICE_VARS += DAP_SIGNATURE
+endef
+
+TARGET_DEVICES += dap-2553-a1
+
 define Device/dap-2695-a1
   DEVICE_TITLE := D-Link DAP-2695 rev. A1
   DEVICE_PACKAGES := ath10k-firmware-qca988x kmod-ath10k uboot-envtools
