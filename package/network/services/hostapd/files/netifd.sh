@@ -168,6 +168,9 @@ hostapd_common_add_bss_config() {
 	config_add_int mcast_rate
 	config_add_array basic_rate
 	config_add_array supported_rates
+
+	config_add_boolean bss_transition proxy_arp na_mcast_to_ucast \
+		wnm_sleep_mode
 }
 
 hostapd_set_bss_options() {
@@ -186,7 +189,8 @@ hostapd_set_bss_options() {
 		wps_pushbutton wps_label ext_registrar wps_pbc_in_m1 \
 		wps_device_type wps_device_name wps_manufacturer wps_pin \
 		macfilter ssid wmm uapsd hidden short_preamble rsn_preauth \
-		iapp_interface eapol_version acct_server acct_secret acct_port
+		iapp_interface eapol_version acct_server acct_secret acct_port \
+		bss_transition proxy_arp na_mcast_to_ucast wnm_sleep_mode
 
 	set_default isolate 0
 	set_default maxassoc 0
@@ -228,6 +232,11 @@ hostapd_set_bss_options() {
 		[ -n "$acct_secret" ] && \
 			append bss_conf "acct_server_shared_secret=$acct_secret" "$N"
 	}
+
+	[ -n "$bss_transition"  ] && append bss_conf "bss_transition=$bss_transition" "$N"
+	[ -n "$proxy_arp"  ] && append bss_conf "proxy_arp=$proxy_arp" "$N"
+	[ -n "$na_mcast_to_ucast"  ] && append bss_conf "na_mcast_to_ucast=$na_mcast_to_ucast" "$N"
+	[ -n "$wnm_sleep_mode"  ] && append bss_conf "wnm_sleep_mode=$wnm_sleep_mode" "$N"
 
 	case "$auth_type" in
 		none)
